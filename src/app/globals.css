@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-blue: #023e9f;
+  --color-primary-teal: #2cb2b3;
+  --color-accent-blue: #1a5bc9;
+  --color-accent-yellow: #ffc107;
+  --font-sans: "Inter", "sans-serif";
+}
+
+html,
+body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.perspective-\[1000px\] {
+  perspective: 1000px;
+}
+
+.perspective-\[1200px\] {
+  perspective: 1200px;
+}
