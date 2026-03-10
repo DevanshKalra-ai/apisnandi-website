@@ -23,6 +23,12 @@ export const metadata: Metadata = {
   icons: {
     icon: '/assets/images/apis_logo.png',
   },
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Apis Nandi',
+  },
 }
 
 export default function RootLayout({
