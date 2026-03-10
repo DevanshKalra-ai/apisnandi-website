@@ -30,8 +30,8 @@ export default function Navbar() {
             className={clsx(
                 "fixed w-full z-50 transition-all duration-300",
                 isScrolled
-                    ? "bg-white/90 backdrop-blur-md shadow-sm py-4"
-                    : "bg-transparent py-6"
+                    ? "bg-white/80 backdrop-blur-xl shadow-md border-b border-white/60 py-4"
+                    : "bg-white/5 backdrop-blur-sm py-6"
             )}
         >
             <div className="container mx-auto px-6 lg:px-12 flex items-center justify-between">
