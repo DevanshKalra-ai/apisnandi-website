@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck, TrendingUp, Users, Star } from "lucide-react";
 import Link from "next/link";
 
 export default function Hero() {
@@ -29,12 +29,15 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-[url('/assets/images/pattern.svg')] blur-[1px]" />
             </div>
 
-            {/* Glassmorphism blobs */}
-            <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-10 left-0 w-80 h-80 bg-[#2cb2b3]/15 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/[0.03] rounded-full blur-3xl pointer-events-none" />
+            {/* Animated background blobs — more prominent on mobile */}
+            <div className="absolute top-16 right-[-80px] w-72 h-72 sm:w-[500px] sm:h-[500px] bg-white/8 rounded-full blur-3xl pointer-events-none animate-pulse-slow" />
+            <div className="absolute bottom-10 left-[-40px] w-60 h-60 sm:w-80 sm:h-80 bg-[#2cb2b3]/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
 
-            <div className="container mx-auto px-5 sm:px-6 lg:px-12 relative z-10 flex flex-col lg:flex-row items-center gap-10 lg:gap-8">
+            {/* Mobile-only: extra teal glow top-left */}
+            <div className="lg:hidden absolute top-32 left-4 w-40 h-40 bg-[#2cb2b3]/25 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="container mx-auto px-5 sm:px-6 lg:px-12 relative z-10 flex flex-col lg:flex-row items-center gap-6 lg:gap-8">
 
                 {/* LEFT: text */}
                 <motion.div
@@ -58,10 +61,10 @@ export default function Hero() {
                     </h1>
 
                     <p className="text-base sm:text-lg font-medium text-white/85 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                        At Apis Nandi Insurance Brokers Pvt. Ltd., we believe insurance is more than coverage — it's a strategic partnership. We help organizations manage risk with confidence and clarity.
+                        At Apis Nandi Insurance Brokers Pvt. Ltd., we believe insurance is more than coverage — it&apos;s a strategic partnership. We help organizations manage risk with confidence and clarity.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
+                    <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-8">
                         <Link
                             href="#services"
                             className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-white text-[#023e9f] font-bold text-base hover:bg-gray-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
@@ -76,8 +79,177 @@ export default function Hero() {
                         </Link>
                     </div>
 
-                    {/* Glassmorphism stat row */}
-                    <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+                    {/* ─── MOBILE VISUAL: Mini shield + floating cards ─── */}
+                    <div className="lg:hidden relative mx-auto mb-8 w-full max-w-sm">
+                        {/* Glow behind shield */}
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <div className="w-48 h-48 bg-[#2cb2b3]/30 rounded-full blur-3xl" />
+                        </div>
+
+                        {/* Shield SVG — compact version */}
+                        <svg
+                            viewBox="0 0 320 300"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-full max-w-[300px] mx-auto drop-shadow-2xl relative z-10"
+                            aria-hidden="true"
+                        >
+                            <defs>
+                                <radialGradient id="mShieldGrad" cx="50%" cy="40%" r="60%">
+                                    <stop offset="0%" stopColor="#ffffff" stopOpacity="0.22" />
+                                    <stop offset="100%" stopColor="#023e9f" stopOpacity="0.04" />
+                                </radialGradient>
+                                <radialGradient id="mInnerGrad" cx="50%" cy="30%" r="70%">
+                                    <stop offset="0%" stopColor="#2cb2b3" stopOpacity="0.35" />
+                                    <stop offset="100%" stopColor="#023e9f" stopOpacity="0.1" />
+                                </radialGradient>
+                                <filter id="mGlow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur stdDeviation="5" result="blur" />
+                                    <feMerge>
+                                        <feMergeNode in="blur" />
+                                        <feMergeNode in="SourceGraphic" />
+                                    </feMerge>
+                                </filter>
+                                <filter id="mCardShadow" x="-10%" y="-10%" width="120%" height="130%">
+                                    <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="rgba(0,0,0,0.3)" />
+                                </filter>
+                                <style>{`
+                                    @keyframes m-pulse-ring {
+                                        0%  { r: 72; opacity: 0.4; }
+                                        100%{ r: 105; opacity: 0; }
+                                    }
+                                    @keyframes m-pulse-ring2 {
+                                        0%  { r: 72; opacity: 0.22; }
+                                        100%{ r: 128; opacity: 0; }
+                                    }
+                                    @keyframes m-shield-glow {
+                                        0%,100%{ opacity:0.8; }
+                                        50%    { opacity:1; }
+                                    }
+                                    @keyframes m-rotate-dash {
+                                        to { stroke-dashoffset:-160; }
+                                    }
+                                    @keyframes m-check-draw {
+                                        from{ stroke-dashoffset:60; }
+                                        to  { stroke-dashoffset:0; }
+                                    }
+                                    @keyframes m-float-up {
+                                        0%,100%{ transform:translateY(0px); }
+                                        50%    { transform:translateY(-7px); }
+                                    }
+                                    @keyframes m-float-down {
+                                        0%,100%{ transform:translateY(0px); }
+                                        50%    { transform:translateY(7px); }
+                                    }
+                                    .mp1 { animation: m-pulse-ring  2.8s ease-out infinite; }
+                                    .mp2 { animation: m-pulse-ring2 2.8s ease-out infinite 1s; }
+                                    .msh { animation: m-shield-glow 3s ease-in-out infinite; }
+                                    .mdl { animation: m-rotate-dash 4s linear infinite; }
+                                    .mck { stroke-dasharray:60; animation: m-check-draw 1s 0.8s ease forwards; stroke-dashoffset:60; }
+                                    .mc1 { animation: m-float-up   4s ease-in-out infinite; }
+                                    .mc2 { animation: m-float-down 4.5s ease-in-out infinite 0.5s; }
+                                `}</style>
+                            </defs>
+
+                            {/* Pulse rings */}
+                            <circle className="mp1" cx="160" cy="140" r="72" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5"/>
+                            <circle className="mp2" cx="160" cy="140" r="72" fill="none" stroke="rgba(44,178,179,0.2)" strokeWidth="1"/>
+
+                            {/* Rotating dashed orbit */}
+                            <circle className="mdl" cx="160" cy="140" r="100" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1" strokeDasharray="8 6"/>
+
+                            {/* Connector lines */}
+                            <line x1="160" y1="64" x2="160" y2="30" stroke="rgba(255,255,255,0.35)" strokeWidth="1.5" strokeDasharray="3 3"/>
+                            <line x1="100" y1="196" x2="48" y2="222" stroke="rgba(255,255,255,0.35)" strokeWidth="1.5" strokeDasharray="3 3"/>
+                            <line x1="222" y1="196" x2="272" y2="222" stroke="rgba(255,255,255,0.35)" strokeWidth="1.5" strokeDasharray="3 3"/>
+
+                            {/* Main shield */}
+                            <g className="msh">
+                                <path
+                                    d="M160 56 L208 74 L208 132 Q208 172 160 192 Q112 172 112 132 L112 74 Z"
+                                    fill="url(#mShieldGrad)"
+                                    stroke="rgba(255,255,255,0.55)"
+                                    strokeWidth="2"
+                                    filter="url(#mGlow)"
+                                />
+                                <path
+                                    d="M160 68 L200 84 L200 130 Q200 162 160 178 Q120 162 120 130 L120 84 Z"
+                                    fill="url(#mInnerGrad)"
+                                    stroke="rgba(44,178,179,0.65)"
+                                    strokeWidth="1.5"
+                                />
+                                <polyline
+                                    className="mck"
+                                    points="140,120 153,133 180,104"
+                                    fill="none"
+                                    stroke="#ffc107"
+                                    strokeWidth="5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </g>
+
+                            {/* Orbit dots */}
+                            <circle cx="160" cy="28" r="4" fill="#2cb2b3" opacity="0.9"/>
+                            <circle cx="46"  cy="224" r="4" fill="#ffc107" opacity="0.9"/>
+                            <circle cx="274" cy="224" r="4" fill="white"   opacity="0.7"/>
+
+                            {/* Card top: Clients */}
+                            <g className="mc1" filter="url(#mCardShadow)">
+                                <rect x="98" y="4" width="124" height="44" rx="12"
+                                    fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.35)" strokeWidth="1"/>
+                                <rect x="98" y="4" width="124" height="16" rx="12"
+                                    fill="rgba(255,255,255,0.08)"/>
+                                <rect x="107" y="10" width="7" height="7" rx="2" fill="#ffc107"/>
+                                <text x="120" y="19" fontSize="7.5" fill="rgba(255,255,255,0.8)" fontFamily="Inter,sans-serif" fontWeight="500">Clients Served</text>
+                                <text x="107" y="40" fontSize="18" fill="white" fontFamily="Inter,sans-serif" fontWeight="800">500+</text>
+                            </g>
+
+                            {/* Card bottom-left: Claims */}
+                            <g className="mc2" filter="url(#mCardShadow)">
+                                <rect x="6" y="208" width="130" height="52" rx="12"
+                                    fill="rgba(255,255,255,0.14)" stroke="rgba(44,178,179,0.5)" strokeWidth="1"/>
+                                <rect x="6" y="208" width="130" height="16" rx="12"
+                                    fill="rgba(255,255,255,0.07)"/>
+                                <rect x="14" y="214" width="7" height="7" rx="2" fill="#2cb2b3"/>
+                                <text x="26" y="223" fontSize="7" fill="rgba(255,255,255,0.8)" fontFamily="Inter,sans-serif" fontWeight="500">Claims Settled</text>
+                                <text x="14" y="246" fontSize="16" fill="white" fontFamily="Inter,sans-serif" fontWeight="800">₹500Cr+</text>
+                                <text x="14" y="257" fontSize="6.5" fill="rgba(255,255,255,0.55)" fontFamily="Inter,sans-serif">Recovered for clients</text>
+                            </g>
+
+                            {/* Card bottom-right: Sectors */}
+                            <g className="mc1" filter="url(#mCardShadow)">
+                                <rect x="184" y="208" width="130" height="52" rx="12"
+                                    fill="rgba(255,255,255,0.14)" stroke="rgba(255,193,7,0.45)" strokeWidth="1"/>
+                                <rect x="184" y="208" width="130" height="16" rx="12"
+                                    fill="rgba(255,255,255,0.07)"/>
+                                <rect x="192" y="214" width="7" height="7" rx="2" fill="#ffc107"/>
+                                <text x="204" y="223" fontSize="7" fill="rgba(255,255,255,0.8)" fontFamily="Inter,sans-serif" fontWeight="500">Industries</text>
+                                <text x="192" y="246" fontSize="16" fill="white" fontFamily="Inter,sans-serif" fontWeight="800">40+ Sectors</text>
+                                <text x="192" y="257" fontSize="6.5" fill="rgba(255,255,255,0.55)" fontFamily="Inter,sans-serif">SMEs to enterprises</text>
+                            </g>
+                        </svg>
+                    </div>
+
+                    {/* Trust signals — mobile */}
+                    <div className="lg:hidden flex items-center justify-center gap-6 mb-8 text-white/70 text-xs font-medium">
+                        <div className="flex items-center gap-1.5">
+                            <Star size={13} className="text-[#ffc107] fill-[#ffc107]" />
+                            <span>IRDAI Licensed</span>
+                        </div>
+                        <div className="w-px h-4 bg-white/20" />
+                        <div className="flex items-center gap-1.5">
+                            <Users size={13} className="text-[#2cb2b3]" />
+                            <span>500+ Clients</span>
+                        </div>
+                        <div className="w-px h-4 bg-white/20" />
+                        <div className="flex items-center gap-1.5">
+                            <TrendingUp size={13} className="text-[#ffc107]" />
+                            <span>10+ Years</span>
+                        </div>
+                    </div>
+
+                    {/* Glassmorphism stat row — desktop */}
+                    <div className="hidden lg:flex flex-wrap items-center justify-start gap-3">
                         {[
                             { val: "500+", label: "Clients Served" },
                             { val: "10+", label: "Years of Excellence" },
@@ -94,7 +266,7 @@ export default function Hero() {
                     </div>
                 </motion.div>
 
-                {/* RIGHT: Animated SVG — bigger, shifted up and right */}
+                {/* RIGHT: Animated SVG — desktop only */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
